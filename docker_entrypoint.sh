@@ -25,6 +25,8 @@ export GITEA__security__SECRET_KEY=$SECRET_KEY
 
 if [ "$(yq ".disable-registration" /data/start9/config.yaml)" = "true" ]; then
     export GITEA__service__DISABLE_REGISTRATION=true
+else
+    export GITEA__service__DISABLE_REGISTRATION=false
 fi
 
 
