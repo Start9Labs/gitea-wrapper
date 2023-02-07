@@ -42,7 +42,7 @@ machine to modify your ssh config to proxy all SSH connections to .onion domains
 through your Tor proxy:
 
 ```
-echo -e '\nHost *.onion\n  ProxyCommand /usr/bin/nc -xlocalhost:9050 -X5 %h %p' >> ~/.ssh/config
+echo -e '\nHost *.onion\n  ProxyCommand /usr/bin/nc -x localhost:9050 -X5 %h %p' >> ~/.ssh/config
 ```
 
 You will also need to have `netcat` (`nc`) installed, which should already be
