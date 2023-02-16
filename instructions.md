@@ -8,8 +8,10 @@ will be installed.
 
 Gitea works pretty much the same as Github. An exception to this is that, when
 accessing your Embassy's Gitea instance remotely (that is, from outside your
-Embassy's local network), you (currently) _must_ use Tor. If you are on the same
-LAN as your Embassy, you can access it over .local.
+Embassy's local network), you (currently) _must_ use Tor. 
+
+If you are on the same LAN as your Embassy, you can access it over .local using HTTP. 
+[SSH support over .local coming later](https://github.com/Start9Labs/gitea-wrapper/issues/7#issuecomment-1385683651).
 
 # Git over Tor
 
