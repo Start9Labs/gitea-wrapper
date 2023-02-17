@@ -1,11 +1,11 @@
 id: gitea
 title: "Gitea"
-version: 1.16.9.2
+version: 1.18.3
 release-notes: |
-  * Upgrade to run on x86_64 architecture
-  * Minor bugfixes
+  * Update upstream to 0.18.3 (see [release notes since 1.16.9](https://github.com/go-gitea/gitea/releases) for all changes)
+  * Add SMTP settings to config
 license: MIT
-wrapper-repo: "https://github.com/chrisguida/gitea-wrapper"
+wrapper-repo: "https://github.com/Start9Labs/gitea-wrapper"
 upstream-repo: "https://github.com/go-gitea/gitea"
 support-site: "https://docs.gitea.io/en-us/"
 marketing-site: "https://gitea.io/en-us/"

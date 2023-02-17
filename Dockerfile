@@ -1,4 +1,4 @@
-FROM gitea/gitea:1.16.9
+FROM gitea/gitea:1.18.3
 
 RUN apk update
 RUN apk add --no-cache tini curl yq --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
