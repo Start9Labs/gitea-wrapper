@@ -5,7 +5,7 @@ export const migration: T.ExpectedExports.migration = compat.migrations
     "1.18.3": {
       up: compat.migrations.updateConfig(
         (config) => {
-          config["email-settings"] = { enabled: "false" };
+          config["email-notifications"] = { enabled: "false" };
           return config;
         },
         true,
@@ -15,10 +15,10 @@ export const migration: T.ExpectedExports.migration = compat.migrations
         (config) => {
           if (
             matches.shape({
-              "email-settings": matches.unknown,
+              "email-notifications": matches.unknown,
             }).test(config)
           ) {
-            delete config["email-settings"];
+            delete config["email-notifications"];
           }
           return config;
         },
