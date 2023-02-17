@@ -66,7 +66,10 @@ export const getConfig: T.ExpectedExports.getConfig = compat.getConfig({
               "description":
                 "Name to display in the from field when receiving emails from your Gitea server.",
               "nullable": false,
-              "default": "Gitea",
+              "placeholder": "test@example.com",
+              "pattern": ".*@.*\\..*",
+              "pattern-description":
+                "Must be a valid email address (e.g. test@example.com) or a name and email address (e.g. Gitea <test@example.com>) ",
             },
             "smtp-user": {
               "type": "string",
