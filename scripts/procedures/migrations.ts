@@ -26,4 +26,4 @@ export const migration: T.ExpectedExports.migration = compat.migrations
         { version: "1.18.3", type: "down" },
       ),
     },
-  }, "1.18.3");
+  }, "1.18.3.1");
