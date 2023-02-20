@@ -8,10 +8,15 @@ will be installed.
 
 Gitea works pretty much the same as Github. An exception to this is that, when
 accessing your Embassy's Gitea instance remotely (that is, from outside your
-Embassy's local network), you (currently) _must_ use Tor. 
+Embassy's local network), you (currently) _must_ use Tor.
 
-If you are on the same LAN as your Embassy, you can access it over .local using HTTP. 
-[SSH support over .local coming later](https://github.com/Start9Labs/gitea-wrapper/issues/7#issuecomment-1385683651).
+If you are on the same LAN as your Embassy, you can access it over .local using
+HTTP.
+
+SSH does not work over .local, as mDNS does not support non-http protocols (i.e.
+SSH). The only supported methods of access at the moment are HTTPS over .local,
+HTTP over .onion, and SSH over .onion.
+[SSH support over LAN coming later](https://github.com/Start9Labs/gitea-wrapper/issues/7#issuecomment-1385683651).
 
 # Git over Tor
 
@@ -33,9 +38,55 @@ services with .onion URLs, such as your Embassy Gitea instance. This is because
 Tor encrypts all traffic, and authentication is taken care of by the URL
 itself.)
 
+You can configure git to use HTTP over Tor either globally or locally.
+
+## Using the global git config
+
 ```
 git config --global http.proxy "socks5h://127.0.0.1:9050"
 ```
+
+## Using the local git config
+
+If altering the global config as above messes up your ability to use git, you
+can unset it like so:
+
+```
+git config --global --unset http.proxy
+```
+
+You can also set `http.proxy` on a per-repo basis. First clone the repo using
+the `--config` flag like so:
+
+```
+git clone http://<key>.onion/<user>/<repo> --config "http.proxy=socks5h://127.0.0.1:9050"
+```
+
+OR you may use the `http_proxy` environment variable like so:
+
+```
+http_proxy=socks5h://127.0.0.1:9050 git clone http://<key>.onion/<user>/<repo>
+```
+
+Then change directory into your repo:
+
+```
+cd <repo>
+```
+
+Then update your local config:
+
+```
+git config --local http.proxy "socks5h://127.0.0.1:9050"
+```
+
+Do this for every repo you use over HTTP/Tor.
+
+# Git over SSH/LAN
+
+Using Gitea over SSH/LAN (.local) is not supported. Once the embassyOS clearnet
+feature has been implemented, the ability to use Gitea over SSH/LAN will be
+added.
 
 # Git over SSH/Tor
 
