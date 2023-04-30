@@ -10,14 +10,6 @@ Gitea works pretty much the same as Github. An exception to this is that, when
 accessing your Embassy's Gitea instance remotely (that is, from outside your
 Embassy's local network), you (currently) _must_ use Tor.
 
-If you are on the same LAN as your Embassy, you can access it over .local using
-HTTP.
-
-SSH does not work over .local, as mDNS does not support non-http protocols (i.e.
-SSH). The only supported methods of access at the moment are HTTPS over .local,
-HTTP over .onion, and SSH over .onion.
-[SSH support over LAN coming later](https://github.com/Start9Labs/gitea-wrapper/issues/7#issuecomment-1385683651).
-
 # Git over Tor
 
 To use `git` over HTTP/Tor with Gitea with either of the two methods listed
