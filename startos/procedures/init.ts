@@ -12,7 +12,7 @@ const install = setupInstall<WrapperData>(async ({ effects, utils }) => {
     '-c',
     'cat /dev/urandom | head -c 32 | base64',
   ])
-  await utils.setOwnWrapperData('/secretKey', secretKey)
+  await utils.setOwnWrapperData('/GITEA__security__SECRET_KEY', secretKey)
 })
 
 /**

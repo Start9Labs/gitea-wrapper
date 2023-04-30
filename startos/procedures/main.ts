@@ -57,7 +57,9 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
 
     // ------------ git interfaces ------------
 
+    // tor
     const gitTorHost = await torHostname.bindTor(22, 22)
+    // lan
     const gitLanHost = await utils.bindLan(22)
 
     // ------ git interface (ssh) ------
@@ -86,7 +88,9 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
 
     // ------ git interface (http) ------
 
+    // tor
     const gitHttpTorOrigin = gitTorHost.createOrigin('http')
+    // lan
     const gitHttpLanOrigins = gitLanHost.createOrigins('https')
 
     let gitHttpInterface = new NetworkInterfaceBuilder({
