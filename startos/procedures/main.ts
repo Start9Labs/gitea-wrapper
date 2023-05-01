@@ -7,6 +7,7 @@ import exportInterfaces from 'start-sdk/lib/mainFn/exportInterfaces'
 import { ExpectedExports } from 'start-sdk/lib/types'
 import { WrapperData } from '../wrapperData'
 import { HealthReceipt } from 'start-sdk/lib/health'
+import { manifest } from '../manifest'
 
 export const main: ExpectedExports.main = setupMain<WrapperData>(
   async ({ effects, utils, started }) => {
@@ -157,8 +158,8 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
         // The function to run to determine the health status of the daemon
         fn: () =>
           utils.checkPortListening(3000, {
-            successMessage: 'Server is live',
-            errorMessage: 'Server is unreachable',
+            successMessage: `${manifest.title} is live`,
+            errorMessage: `${manifest.title} is unreachable`,
           }),
       },
     })
