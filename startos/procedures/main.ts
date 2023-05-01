@@ -28,7 +28,7 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
 
     const torHostname = utils.torHostName('torHostname')
 
-    // ------------ web interface ------------
+    // ------------ web/git(http) interface ------------
 
     // tor
     const webTorHost = await torHostname.bindTor(3000, 80)
@@ -39,9 +39,9 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
 
     let webInterface = new NetworkInterfaceBuilder({
       effects,
-      name: 'Web UI',
+      name: 'Web UI (and Git HTTP)',
       id: 'webui',
-      description: 'Web UI for your Gitea server',
+      description: 'Web UI for your Gitea server. Also used for git over HTTP.',
       ui: true,
       basic: null,
       path: '',
@@ -65,9 +65,9 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
     // ------ git interface (ssh) ------
 
     // tor
-    const gitSshTorOrigin = gitTorHost.createOrigin('git@')
+    const gitSshTorOrigin = gitTorHost.createOrigin(null)
     // lan
-    const gitSshLanOrigins = gitLanHost.createOrigins('git@')
+    const gitSshLanOrigins = gitLanHost.createOrigins(null)
 
     let gitSshInterface = new NetworkInterfaceBuilder({
       effects,
@@ -75,7 +75,7 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
       id: 'gitSsh',
       description: 'Git Remote URLs (SSH)',
       ui: false,
-      basic: null,
+      basic: { username: 'git', password: null },
       path: '',
       search: {},
     })
@@ -86,36 +86,8 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
       ...gitSshLanOrigins.ip,
     ])
 
-    // ------ git interface (http) ------
-
-    // tor
-    const gitHttpTorOrigin = gitTorHost.createOrigin('http')
-    // lan
-    const gitHttpLanOrigins = gitLanHost.createOrigins('https')
-
-    let gitHttpInterface = new NetworkInterfaceBuilder({
-      effects,
-      name: 'Git',
-      id: 'gitHttp',
-      description: 'Git Remote URLs (HTTP)',
-      ui: false,
-      basic: null,
-      path: '',
-      search: {},
-    })
-
-    const gitHttpReceipt = await gitHttpInterface.exportAddresses([
-      gitHttpTorOrigin,
-      gitHttpLanOrigins.local,
-      ...gitHttpLanOrigins.ip,
-    ])
-
     // Export all address receipts for all interfaces to obtain interface receipt
-    const interfaceReceipt = exportInterfaces(
-      webReceipt,
-      gitSshReceipt,
-      gitHttpReceipt,
-    )
+    const interfaceReceipt = exportInterfaces(webReceipt, gitSshReceipt)
 
     /**
      * ======================== Additional Health Checks (optional) ========================
@@ -135,25 +107,36 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
     const {
       GITEA__server__DOMAIN,
       GITEA__service__DISABLE_REGISTRATION,
-      email,
+      smtp,
     } = await utils.getOwnWrapperData('/config').once()
 
-    const smtp =
-      email.unionSelectKey === 'enabled'
-        ? {
-            GITEA__mailer__ENABLED: true,
-            ...email.unionValueKey,
-          }
-        : {
-            GITEA__mailer__ENABLED: false,
-          }
+    let mailer: any
+
+    if (smtp.unionSelectKey === 'disabled') {
+      mailer = { GITEA__mailer__ENABLED: false }
+    } else {
+      const settings =
+        smtp.unionSelectKey === 'system'
+          ? await effects.getSystemSmtp()
+          : smtp.unionValueKey
+
+      mailer = {
+        GITEA__mailer__ENABLED: true,
+        GITEA__mailer__SMTP_ADDR: settings.server,
+        GITEA__mailer__SMTP_PORT: settings.port,
+        GITEA__mailer__FROM: settings.from,
+        GITEA__mailer__USER: settings.user,
+        GITEA__mailer__PASSWD: settings.password,
+        GITEA__mailer__IS_TLS_ENABLED: settings.tls,
+      }
+    }
 
     return Daemons.of({
       effects,
       started,
       interfaceReceipt, // Provide the interfaceReceipt to prove it was completed
       healthReceipts, // Provide the healthReceipts or [] to prove they were at least considered
-    }).addDaemon('ws', {
+    }).addDaemon('main', {
       command: ['/usr/bin/entrypoint', '--', '/bin/s6-svscan', '/etc/s6'], // The command to start the daemon
       env: {
         GITEA__server__DOMAIN,
@@ -166,7 +149,7 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
           .getOwnWrapperData('/GITEA__security__SECRET_KEY')
           .once(),
         GITEA__service__DISABLE_REGISTRATION,
-        ...smtp,
+        ...mailer,
       },
       requires: [],
       ready: {
