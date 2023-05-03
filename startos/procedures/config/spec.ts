@@ -1,7 +1,9 @@
-import { Config, Value } from 'start-sdk/lib/config/builder'
+import { Config } from 'start-sdk/lib/config/builder/config'
+import { Value } from 'start-sdk/lib/config/builder/value'
+import { smtpConfig } from 'start-sdk/lib/config/constants'
 
 export const configSpec = Config.of({
-  GITEA__server__DOMAIN: Value.select({
+  primary_domain: Value.select({
     name: 'Primary Domain',
     required: { default: 'tor' },
     description:
@@ -21,5 +23,4 @@ export const configSpec = Config.of({
   smtp: smtpConfig,
 })
 
-export const matchInputSpec = configSpec.validator()
-export type ConfigSpec = typeof matchInputSpec._TYPE
+export type ConfigSpec = typeof configSpec.validator._TYPE
