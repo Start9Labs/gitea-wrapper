@@ -1,6 +1,6 @@
-import { Config } from 'start-sdk/lib/config/builder/config'
-import { Value } from 'start-sdk/lib/config/builder/value'
-import { smtpConfig } from 'start-sdk/lib/config/constants'
+import { Config } from '@start9labs/start-sdk/lib/config/builder/config'
+import { Value } from '@start9labs/start-sdk/lib/config/builder/value'
+import { smtpConfig } from '@start9labs/start-sdk/lib/config/constants'
 
 export const configSpec = Config.of({
   primary_domain: Value.select({
