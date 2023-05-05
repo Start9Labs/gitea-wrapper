@@ -3,17 +3,17 @@ import { WrapperData } from '../wrapperData'
 import { migrations } from './migrations'
 import { setupUninstall } from '@start9labs/start-sdk/lib/inits/setupUninstall'
 import { setupInit } from '@start9labs/start-sdk/lib/inits/setupInit'
+import { getRandomString } from '@start9labs/start-sdk/lib/util/getRandomString'
 
 /**
  * Here you define arbitrary code that runs once, on fresh install only
  */
 const install = setupInstall<WrapperData>(async ({ effects, utils }) => {
   // generate secret key
-  const secretKey = await effects.runCommand([
-    'sh',
-    '-c',
-    'cat /dev/urandom | head -c 32 | base64',
-  ])
+  const secretKey = getRandomString({
+    charset: 'A-Z,a-z,0-9,+,/',
+    len: 32,
+  })
   await utils.setOwnWrapperData('/GITEA__security__SECRET_KEY', secretKey)
 })
 
