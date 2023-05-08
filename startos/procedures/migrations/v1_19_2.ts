@@ -1,5 +1,5 @@
 import { Migration } from '@start9labs/start-sdk/lib/inits/migrations/Migration'
-import { readFile } from 'fs/promises'
+import { readFile, rmdir } from 'fs/promises'
 import { load } from 'js-yaml'
 /**
  * This is an example migration file
@@ -20,7 +20,7 @@ export const v1_19_2 = new Migration({
     // *** convert config.yaml to wrapperData ***
     // get config.yaml
     const configYaml = load(
-      await readFile('/data/start9/config.yaml', 'utf8'),
+      await readFile('/data/start9/config.yaml', 'utf-8'),
     ) as ConfigYaml
     // set wrapper data
     await utils.setOwnWrapperData('/config', {
@@ -39,7 +39,7 @@ export const v1_19_2 = new Migration({
     })
 
     // *** remove old start9 dir ***
-    await effects.runCommand(['rm', '-rf', '/root/start9'])
+    await rmdir('/root/start9')
   },
   down: async ({ effects }) => {
     throw new Error('Downgrade not permitted')
