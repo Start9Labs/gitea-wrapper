@@ -117,19 +117,19 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
      * Each daemon defines its own health check, which can optionally be exposed to the user
      */
 
-    const { primary_domain, GITEA__service__DISABLE_REGISTRATION, smtp } =
+    const { primaryDomain, GITEA__service__DISABLE_REGISTRATION, smtp } =
       await utils.getOwnWrapperData('/config').once()
 
     // primary domain
     let GITEA__server__DOMAIN: string
     let GITEA__server__ROOT_URL: string
-    if (primary_domain === 'tor') {
+    if (primaryDomain === 'tor') {
       GITEA__server__DOMAIN = await effects.getServiceTorHostname('torHostname')
       GITEA__server__ROOT_URL = `http://${GITEA__server__DOMAIN}`
     } else {
       const port = await effects.getServicePortForward(443)
       const lanHostname =
-        primary_domain === 'local'
+        primaryDomain === 'local'
           ? await effects.getLocalHostname()
           : await effects.getIPHostname()
       GITEA__server__DOMAIN = `${lanHostname}:${port}`
@@ -169,9 +169,9 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
         GITEA__server__ROOT_URL,
         GITEA__server__SSH_DOMAIN: GITEA__server__DOMAIN,
         GITEA__security__INSTALL_LOCK: true,
-        GITEA__security__SECRET_KEY: await utils
-          .getOwnWrapperData('/GITEA__security__SECRET_KEY')
-          .once(),
+        GITEA__security__SECRET_KEY: await effects.vault.get({
+          key: '/GITEA__security__SECRET_KEY',
+        }),
         GITEA__service__DISABLE_REGISTRATION,
         ...mailer,
       },

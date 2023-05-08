@@ -3,7 +3,7 @@ import { Value } from '@start9labs/start-sdk/lib/config/builder/value'
 import { smtpConfig } from '@start9labs/start-sdk/lib/config/constants'
 
 export const configSpec = Config.of({
-  primary_domain: Value.select({
+  primaryDomain: Value.select({
     name: 'Primary Domain',
     required: { default: 'tor' },
     description:

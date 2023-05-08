@@ -14,7 +14,10 @@ const install = setupInstall<WrapperData>(async ({ effects, utils }) => {
     charset: 'A-Z,a-z,0-9,+,/',
     len: 32,
   })
-  await utils.setOwnWrapperData('/GITEA__security__SECRET_KEY', secretKey)
+  await effects.vault.set({
+    key: '/GITEA__security__SECRET_KEY',
+    value: secretKey,
+  })
 })
 
 /**
