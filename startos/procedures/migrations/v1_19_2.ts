@@ -39,7 +39,7 @@ export const v1_19_2 = new Migration({
     })
 
     // *** remove old start9 dir ***
-    await rmdir('/root/start9')
+    await rmdir('/data/start9')
   },
   down: async ({ effects }) => {
     throw new Error('Downgrade not permitted')
