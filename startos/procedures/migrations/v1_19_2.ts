@@ -1,20 +1,13 @@
-import { Migration } from '@start9labs/start-sdk/lib/inits/migrations/Migration'
+import { sdk } from '../../sdk'
 import { readFile, rmdir } from 'fs/promises'
 import { load } from 'js-yaml'
-/**
- * This is an example migration file
- *
- * By convention, each version service requiring a migration receives its own file
- *
- * The resulting migration (e.g. v4000) is exported, then imported into migration/index.ts
- */
 
 type ConfigYaml = {
   'local-mode': boolean
   'disable-registration': boolean
 }
 
-export const v1_19_2 = new Migration({
+export const v1_19_2 = sdk.Migration.of({
   version: '1.19.2',
   up: async ({ effects, utils }) => {
     // *** convert config.yaml to wrapperData ***
@@ -23,7 +16,7 @@ export const v1_19_2 = new Migration({
       await readFile('/data/start9/config.yaml', 'utf-8'),
     ) as ConfigYaml
     // set wrapper data
-    await utils.setOwnWrapperData('/config', {
+    await utils.store.setOwn('/config', {
       primaryDomain: configYaml['local-mode'] ? 'local' : 'tor',
       GITEA__service__DISABLE_REGISTRATION: configYaml['disable-registration'],
       smtp: { unionSelectKey: 'disabled', unionValueKey: {} },

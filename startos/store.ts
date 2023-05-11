@@ -1,5 +1,5 @@
 import { ConfigSpec } from './procedures/config/spec'
 
-export interface WrapperData {
+export interface Store {
   config: ConfigSpec
 }

@@ -1,13 +1,12 @@
-import { setupMain } from '@start9labs/start-sdk/lib/mainFn'
+import { sdk } from '../sdk'
 import exportInterfaces from '@start9labs/start-sdk/lib/mainFn/exportInterfaces'
 import { ExpectedExports } from '@start9labs/start-sdk/lib/types'
-import { WrapperData } from '../wrapperData'
 import { manifest } from '../manifest'
 import { NetworkInterfaceBuilder } from '@start9labs/start-sdk/lib/mainFn/NetworkInterfaceBuilder'
 import { HealthReceipt } from '@start9labs/start-sdk/lib/health/HealthReceipt'
 import { Daemons } from '@start9labs/start-sdk/lib/mainFn/Daemons'
 
-export const main: ExpectedExports.main = setupMain<WrapperData>(
+export const main: ExpectedExports.main = sdk.setupMain(
   async ({ effects, utils, started }) => {
     /**
      * ======================== Setup ========================
@@ -118,7 +117,7 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
      */
 
     const { primaryDomain, GITEA__service__DISABLE_REGISTRATION, smtp } =
-      await utils.getOwnWrapperData('/config').once()
+      await utils.store.getOwn('/config').once()
 
     // primary domain
     let GITEA__server__DOMAIN: string
@@ -169,9 +168,9 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
         GITEA__server__ROOT_URL,
         GITEA__server__SSH_DOMAIN: GITEA__server__DOMAIN,
         GITEA__security__INSTALL_LOCK: true,
-        GITEA__security__SECRET_KEY: await effects.vault.get({
-          key: '/GITEA__security__SECRET_KEY',
-        }),
+        GITEA__security__SECRET_KEY: await utils.vault.get(
+          '/GITEA__security__SECRET_KEY',
+        ),
         GITEA__service__DISABLE_REGISTRATION,
         ...mailer,
       },
