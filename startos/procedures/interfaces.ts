@@ -14,11 +14,12 @@ export const sshInterfaceId = 'ssh'
 export const setInterfaces = sdk.setupInterfaces(
   configSpec,
   async ({ effects, utils, input }) => {
-    // web interface
-    const httpMulti = utils.host.multi('httpMulti')
-    const httpOrigin = await httpMulti.bindPort(uiPort, { protocol: 'http' })
+    const multi = utils.host.multi('multi')
+
+    // web interface (and git over HTTP)
+    const httpOrigin = await multi.bindPort(uiPort, { protocol: 'http' })
     const webInterface = utils.createInterface({
-      name: 'Web UI git (HTTP)',
+      name: 'Web UI and git (HTTP)',
       id: webInterfaceId,
       description: 'Web UI for Gitea server. Also used for git over HTTP.',
       ui: true,
@@ -29,8 +30,7 @@ export const setInterfaces = sdk.setupInterfaces(
     const webReceipt = await webInterface.export([httpOrigin])
 
     // ssh interface
-    const sshMulti = utils.host.multi('sshMulti')
-    const sshOrigin = await sshMulti.bindPort(sshPort, { protocol: 'ssh' })
+    const sshOrigin = await multi.bindPort(sshPort, { protocol: 'ssh' })
     const sshInterface = utils.createInterface({
       name: 'Git (SSH)',
       id: sshInterfaceId,

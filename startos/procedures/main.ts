@@ -83,9 +83,9 @@ export const main: ExpectedExports.main = sdk.setupMain(
         GITEA__server__ROOT_URL,
         GITEA__server__SSH_DOMAIN: GITEA__server__DOMAIN,
         GITEA__security__INSTALL_LOCK: true,
-        GITEA__security__SECRET_KEY: await utils.vault.get(
-          '/GITEA__security__SECRET_KEY',
-        ),
+        GITEA__security__SECRET_KEY: await utils.vault
+          .get('/GITEA__security__SECRET_KEY')
+          .const(),
         GITEA__service__DISABLE_REGISTRATION,
         ...mailer,
       },
