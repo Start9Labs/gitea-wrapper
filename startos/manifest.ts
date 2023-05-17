@@ -17,7 +17,7 @@ export const manifest = setupManifest({
   donationUrl: null,
   description: {
     short: 'A painless self-hosted Git service',
-    long: 'Nostr RS Relay currently supports the entire relay protocol and persists data with SQLite',
+    long: 'Gitea is a community managed lightweight code hosting solution written in Go. It is published under the MIT license',
   },
   assets: {
     license: 'LICENSE',
