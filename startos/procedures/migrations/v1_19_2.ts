@@ -10,16 +10,10 @@ type ConfigYaml = {
 export const v1_19_2 = sdk.Migration.of({
   version: '1.19.2',
   up: async ({ effects, utils }) => {
-    // *** convert config.yaml to wrapperData ***
-    // get config.yaml
-    const configYaml = load(
-      await readFile('/data/start9/config.yaml', 'utf-8'),
-    ) as ConfigYaml
-    // set wrapper data
-    await utils.store.setOwn('/config', {
-      primaryDomain: configYaml['local-mode'] ? 'local' : 'tor',
-      GITEA__service__DISABLE_REGISTRATION: configYaml['disable-registration'],
-      smtp: { unionSelectKey: 'disabled', unionValueKey: {} },
+    // set smtp wrapper data
+    await utils.store.setOwn('/smtp', {
+      unionSelectKey: 'disabled',
+      unionValueKey: {},
     })
 
     // *** copy secret key ***

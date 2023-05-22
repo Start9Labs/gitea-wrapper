@@ -3,18 +3,7 @@ import { sdk } from '../../sdk'
 const { Config, Value } = sdk
 
 export const configSpec = Config.of({
-  primaryDomain: Value.select({
-    name: 'Primary Domain',
-    required: { default: 'tor' },
-    description:
-      'Your primary domain is used for creating links inside the Gitea UI',
-    values: {
-      tor: '.onion',
-      local: '.local',
-      ip: 'IP Address',
-    },
-  }),
-  GITEA__service__DISABLE_REGISTRATION: Value.toggle({
+  DISABLE_REGISTRATION: Value.toggle({
     name: 'Disable Registration',
     default: false,
     description:
