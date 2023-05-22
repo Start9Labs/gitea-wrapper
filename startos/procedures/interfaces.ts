@@ -8,8 +8,6 @@ export const sshInterfaceId = 'ssh'
 
 /**
  * ======================== Interfaces ========================
- *
- * In this section, you will decide how the service will be exposed to the outside world
  */
 export const setInterfaces = sdk.setupInterfaces(
   configSpec,

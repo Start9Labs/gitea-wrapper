@@ -1,11 +1,5 @@
 import { sdk } from '../../sdk'
 import { readFile, rmdir } from 'fs/promises'
-import { load } from 'js-yaml'
-
-type ConfigYaml = {
-  'local-mode': boolean
-  'disable-registration': boolean
-}
 
 export const v1_19_2 = sdk.Migration.of({
   version: '1.19.2',
