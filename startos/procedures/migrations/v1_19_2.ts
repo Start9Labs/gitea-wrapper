@@ -14,10 +14,7 @@ export const v1_19_2 = sdk.Migration.of({
     // get secret key
     const secretKey = await readFile('/data/start9/secret-key.txt', 'base64')
     // save secret key
-    await effects.vault.set({
-      key: '/GITEA__security__SECRET_KEY',
-      value: secretKey,
-    })
+    await utils.store.setOwn('/GITEA__security__SECRET_KEY', secretKey)
 
     // *** remove old start9 dir ***
     await rmdir('/data/start9')

@@ -9,17 +9,22 @@ const install = sdk.setupInstall(async ({ effects, utils }) => {
     charset: 'A-Z,a-z,0-9,+,/',
     len: 32,
   })
-  await effects.vault.set({
-    key: '/GITEA__security__SECRET_KEY',
-    value: secretKey,
-  })
+  await utils.store.setOwn('/GITEA__security__SECRET_KEY', secretKey)
 })
 
 const uninstall = sdk.setupUninstall(async ({ effects, utils }) => {})
+
+const exportedValues = sdk.setupExports(({ effects, utils }) => {
+  return {
+    ui: [],
+    services: [],
+  }
+})
 
 export const { init, uninit } = sdk.setupInit(
   migrations,
   install,
   uninstall,
   setInterfaces,
+  exportedValues,
 )

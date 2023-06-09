@@ -28,7 +28,7 @@ export const main: ExpectedExports.main = sdk.setupMain(
       .getOwn(webInterfaceId)
       .const()
 
-    let GITEA__server__ROOT_URL = webInterface.primaryUrl
+    let GITEA__server__ROOT_URL = webInterface.primaryUrl!
 
     // mailer
     const smtp = await utils.store.getOwn('/smtp').once()
@@ -62,8 +62,8 @@ export const main: ExpectedExports.main = sdk.setupMain(
       env: {
         GITEA__server__ROOT_URL,
         GITEA__security__INSTALL_LOCK: 'true',
-        GITEA__security__SECRET_KEY: await utils.vault
-          .get('GITEA__security__SECRET_KEY')
+        GITEA__security__SECRET_KEY: await utils.store
+          .getOwn('/GITEA__security__SECRET_KEY')
           .const(),
         ...mailer,
       },
