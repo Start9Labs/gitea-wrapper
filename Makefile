@@ -28,7 +28,7 @@ arm: docker-images/aarch64.tar scripts/embassy.js
 x86: docker-images/x86_64.tar scripts/embassy.js
 	embassy-sdk pack
 
- $(PKG_ID).s9pk: manifest.yaml instructions.md scripts/embassy.js gitea/LICENSE docker-images/aarch64.tar docker-images/x86_64.tar
+ $(PKG_ID).s9pk: manifest.yaml instructions.md scripts/embassy.js LICENSE docker-images/aarch64.tar docker-images/x86_64.tar
 	embassy-sdk pack
 
 docker-images/aarch64.tar: Dockerfile docker_entrypoint.sh
