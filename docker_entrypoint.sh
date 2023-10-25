@@ -13,7 +13,7 @@ else
 fi
 
 if ! [ -f /data/start9/secret-key.txt ]; then
-    cat /dev/urandom | head -c 32 | base64 > /data/start9/secret-key.txt
+    cat /dev/urandom | head -c 32 | base64 >/data/start9/secret-key.txt
 fi
 SECRET_KEY=$(cat /data/start9/secret-key.txt)
 
@@ -41,4 +41,5 @@ else
     export GITEA__mailer__ENABLED=false
 fi
 
+printf "\n\n [i] Starting Gitea ...\n\n"
 exec tini /usr/bin/entrypoint -- /bin/s6-svscan /etc/s6
