@@ -1,5 +1,6 @@
 PKG_ID := $(shell yq e ".id" manifest.yaml)
 PKG_VERSION := $(shell yq e ".version" manifest.yaml)
+TS_FILES := $(shell find ./ -name \*.ts)
 
 .DELETE_ON_ERROR:
 
@@ -30,7 +31,7 @@ clean:
 	rm -f $(PKG_ID).s9pk
 	rm -f scripts/*.js
 
-scripts/embassy.js:
+scripts/embassy.js: $(TS_FILES)
 	deno bundle scripts/embassy.ts scripts/embassy.js
 
 docker-images/x86_64.tar: Dockerfile docker_entrypoint.sh
