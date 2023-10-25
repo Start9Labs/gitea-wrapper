@@ -41,6 +41,4 @@ else
     export GITEA__mailer__ENABLED=false
 fi
 
-
-
 exec tini /usr/bin/entrypoint -- /bin/s6-svscan /etc/s6
