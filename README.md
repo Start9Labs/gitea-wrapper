@@ -2,7 +2,7 @@
   <img src="icon.png" alt="Project Logo" width="21%">
 </p>
 
-# Wrapper for gitea
+# Gitea for StartOS
 
 Gitea is a community managed lightweight code hosting solution written in Go.
 It is published under the MIT license. This repository creates the `s9pk` package that is installed to run `gitea` on [StartOS](https://github.com/Start9Labs/start-os/).
