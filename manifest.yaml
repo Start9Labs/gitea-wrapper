@@ -1,12 +1,12 @@
 id: gitea
 title: "Gitea"
-version: 1.18.3.1
+version: 1.20.5
 release-notes: |
-  * Update upstream to 0.18.3 (see [release notes since 1.16.9](https://github.com/go-gitea/gitea/releases) for all changes)
-  * Add SMTP settings to config
-  * Update instructions
+  * Upstream code update
+  * Standardized and optimized icon
+  * Full list of upstream changes available [here](https://github.com/go-gitea/gitea/compare/v1.18.3...v1.20.5)
 license: MIT
-wrapper-repo: "https://github.com/Start9Labs/gitea-wrapper"
+wrapper-repo: "https://github.com/Start9Labs/gitea-startos"
 upstream-repo: "https://github.com/go-gitea/gitea"
 support-site: "https://docs.gitea.io/en-us/"
 marketing-site: "https://gitea.io/en-us/"
@@ -16,7 +16,7 @@ description:
   long: |
     Gitea is a community managed lightweight code hosting solution written in Go. It is published under the MIT license.
 assets:
-  license: gitea/LICENSE
+  license: LICENSE
   icon: icon.png
   instructions: instructions.md
 main:

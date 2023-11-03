@@ -7,10 +7,10 @@ configuration page. You can just accept the settings on this page, and Gitea
 will be installed.
 
 Gitea works pretty much the same as Github. An exception to this is that, when
-accessing your Embassy's Gitea instance remotely (that is, from outside your
-Embassy's local network), you (currently) _must_ use Tor.
+accessing your Start9 server's Gitea instance remotely (that is, from outside your
+local network), you (currently) _must_ use Tor.
 
-If you are on the same LAN as your Embassy, you can access it over .local using
+If you are on the same LAN as your Start9 server, you can access it over .local using
 HTTP.
 
 SSH does not work over .local, as mDNS does not support non-http protocols (i.e.
@@ -34,7 +34,7 @@ you happen to access one after running this command, it will be accessed over
 Tor as well since this is a global setting).
 
 (Note: using cleartext HTTP over Tor is very secure when accessing hidden
-services with .onion URLs, such as your Embassy Gitea instance. This is because
+services with .onion URLs, such as your Start9 server's Gitea instance. This is because
 Tor encrypts all traffic, and authentication is taken care of by the URL
 itself.)
 
@@ -84,7 +84,7 @@ Do this for every repo you use over HTTP/Tor.
 
 # Git over SSH/LAN
 
-Using Gitea over SSH/LAN (.local) is not supported. Once the embassyOS clearnet
+Using Gitea over SSH/LAN (.local) is not supported. Once the StartOS clearnet
 feature has been implemented, the ability to use Gitea over SSH/LAN will be
 added.
 

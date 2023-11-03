@@ -1,3 +1,0 @@
-[submodule "gitea"]
-	path = gitea
-	url = git@github.com:go-gitea/gitea
