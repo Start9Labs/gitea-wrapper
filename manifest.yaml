@@ -24,6 +24,10 @@ main:
   entrypoint: "/usr/local/bin/docker_entrypoint.sh"
   mounts:
     main: /data
+hardware-requirements:
+  arch:
+    - x86_64
+    - aarch64
 health-checks:
   web:
     name: Web & Git HTTP Tor Interfaces
