@@ -26,4 +26,16 @@ export const migration: T.ExpectedExports.migration = compat.migrations
         { version: "1.18.3", type: "down" },
       ),
     },
+    "1.21.1": {
+      up: compat.migrations.updateConfig(
+        (config) => {
+          return config;
+        },
+        false,
+        { version: "1.21.1", type: "up" }
+      ),
+      down: () => {
+        throw new Error("Downgrade not supported");
+      },
+    },
   }, "1.21.1");
