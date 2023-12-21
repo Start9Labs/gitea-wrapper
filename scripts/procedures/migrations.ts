@@ -31,7 +31,7 @@ export const migration: T.ExpectedExports.migration = compat.migrations
         (config) => {
           return config;
         },
-        false,
+        true,
         { version: "1.21.2", type: "up" }
       ),
       down: () => {
