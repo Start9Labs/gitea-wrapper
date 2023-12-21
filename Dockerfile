@@ -1,4 +1,4 @@
-FROM gitea/gitea:1.20.5
+FROM gitea/gitea:1.21.2
 
 RUN apk add --no-cache tini curl yq; \
     rm -f /var/cache/apk/*

@@ -1,10 +1,9 @@
 id: gitea
 title: "Gitea"
-version: 1.20.5
+version: 1.21.2
 release-notes: |
   * Upstream code update
-  * Standardized and optimized icon
-  * Full list of upstream changes available [here](https://github.com/go-gitea/gitea/compare/v1.18.3...v1.20.5)
+  * Full list of upstream changes available [here](https://github.com/go-gitea/gitea/compare/v1.20.5...v1.21.2)
 license: MIT
 wrapper-repo: "https://github.com/Start9Labs/gitea-startos"
 upstream-repo: "https://github.com/go-gitea/gitea"
@@ -25,6 +24,10 @@ main:
   entrypoint: "/usr/local/bin/docker_entrypoint.sh"
   mounts:
     main: /data
+hardware-requirements:
+  arch:
+    - x86_64
+    - aarch64
 health-checks:
   web:
     name: Web & Git HTTP Tor Interfaces

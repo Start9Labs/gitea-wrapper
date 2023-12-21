@@ -4,7 +4,7 @@
 
 # Gitea for StartOS
 
-Gitea is a community managed lightweight code hosting solution written in Go.
+[Gitea](https://github.com/go-gitea/gitea) is a community managed lightweight code hosting solution written in Go.
 It is published under the MIT license. This repository creates the `s9pk` package that is installed to run `gitea` on [StartOS](https://github.com/Start9Labs/start-os/).
 
 ## Dependencies
@@ -16,7 +16,7 @@ Install the system dependencies below to build this project by following the ins
 - [yq](https://mikefarah.gitbook.io/yq)
 - [deno](https://deno.land/#installation)
 - [make](https://www.gnu.org/software/make/)
-- [start-sdk](https://github.com/Start9Labs/start-os/tree/sdk/backend)
+- [start-sdk](https://github.com/Start9Labs/start-os/tree/sdk)
 
 ## Cloning
 
