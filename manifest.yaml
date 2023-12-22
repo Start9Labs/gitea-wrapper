@@ -3,6 +3,7 @@ title: "Gitea"
 version: 1.21.2
 release-notes: |
   * Upstream code update
+  * Updated error handling in health checks
   * Full list of upstream changes available [here](https://github.com/go-gitea/gitea/compare/v1.20.5...v1.21.2)
 license: MIT
 wrapper-repo: "https://github.com/Start9Labs/gitea-startos"
