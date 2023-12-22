@@ -4,11 +4,17 @@ import { getConfig } from "./getConfig.ts";
 export const health: T.ExpectedExports.health = {
   // deno-lint-ignore require-await
   async "web"(effects, duration) {
-    return healthWeb(effects, duration);
+    return healthWeb(effects, duration).catch(e => {
+      effects.error(`Error in web health check: ${e}`);
+      return errorCode(60, "Starting");
+    });
   },
   // deno-lint-ignore require-await
   async "user-signups-off"(effects, duration) {
-    return healthSignups(effects, duration);
+    return healthSignups(effects, duration).catch(e => {
+      effects.error(`Error in user signups health check: ${e}`);
+      return errorCode(60, "Starting");
+    });
   },
 };
 
