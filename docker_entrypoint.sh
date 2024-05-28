@@ -22,6 +22,8 @@ export GITEA__server__ROOT_URL="$PROTOCOL://$DOMAIN/"
 export GITEA__server__SSH_DOMAIN=$DOMAIN
 export GITEA__security__INSTALL_LOCK=true
 export GITEA__security__SECRET_KEY=$SECRET_KEY
+export GITEA__lfs__PATH="/data/git/lfs"
+sed -i -e '/^LFS_CONTENT_PATH =/d' -e '/^ROUTER =/d' /data/gitea/conf/app.ini
 
 if [ "$(yq ".disable-registration" /data/start9/config.yaml)" = "true" ]; then
     export GITEA__service__DISABLE_REGISTRATION=true
