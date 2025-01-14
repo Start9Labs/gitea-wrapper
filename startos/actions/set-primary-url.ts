@@ -29,7 +29,6 @@ export const inputSpec = InputSpec.of({
                 systemUrls.find(
                   (u) => u.startsWith('http:') && u.includes('.onion'),
                 ) || '',
-              required: true,
             }
           }),
         }),
